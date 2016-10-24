@@ -1,0 +1,64 @@
+{
+  "name": "bizComponent",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production webpack --progress --colors",
+    "rm": "rimraf ./dist  ./index.html",
+    "server:webpack": "webpack-dev-server --inline --config webpack.config.js --progress --colors --watch --display-modules",
+    "server:bizdp": "cross-env NODE_ENV=dev bizdp server",
+    "start": "cross-env NODE_ENV=dev bizdp server"
+  },
+  "dependencies": {
+    "assets-webpack-plugin": "3.3.0",
+    "babel-core": "6.3.26",
+    "babel-eslint": "5.0.0-beta6",
+    "babel-loader": "6.2.0",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-plugin-transform-runtime": "6.3.13",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-stage-0": "6.3.13",
+    "babel-runtime": "6.3.19",
+    "css-loader": "0.23.1",
+    "eslint": "1.10.3",
+    "eslint-plugin-babel": "3.0.0",
+    "file-loader": "0.8.4",
+    "html-webpack-plugin": "2.22.0",
+    "jquery": "2.1.4",
+    "rimraf": "2.4.3",
+    "style-loader": "0.12.3",
+    "webpack": "1.12.9",
+    "webpack-dev-middleware": "1.4.0",
+    "webpack-hot-middleware": "2.12.0",
+    "biz-ui": "^1.2.5"
+  },
+  "devDependencies": {
+    "@bizfe/biz-dp": "0.1.0",
+    "es6-promise": "3.1.2",
+    "extract-text-webpack-plugin": "0.8.2"
+  },
+  "bizdp": {
+    "npm": {
+      "command": "npm",
+      "registry": "http://registry.npm.sogou"
+    },
+    "build": "gulp",
+    "server": {
+      "command": "webpack-dev-server",
+      "options": {
+        "inline": true,
+        "hot": true,
+        "host": "0.0.0.0",
+        "colors": true,
+        "progress": true,
+        "display-modules": true
+      }
+    },
+    "validate": {
+      "command": "eslint",
+      "options": {},
+      "src": "src"
+    }
+  }
+}

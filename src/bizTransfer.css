@@ -1,0 +1,17 @@
+/*
+* @Author: xiongsheng
+* @Date:   2016-10-24 17:03:56
+* @Last Modified by:   xiongsheng
+* @Last Modified time: 2016-10-24 17:08:01
+*/
+
+
+/* 效果CSS开始 */
+.selectbox{width:500px;height:220px;margin:0px auto;}
+.selectbox div{float:left;}
+.selectbox .select-bar{padding:0 20px;}
+.selectbox .select-bar select{width:150px;height:200px;border:1px #A0A0A4 solid;padding:4px;font-size:14px;font-family:"microsoft yahei";}
+.btn-bar{}
+.btn-bar p{margin-top:16px;}
+.btn-bar p .btn{width:50px;height:30px;cursor:pointer;font-family:simsun;font-size:14px;}
+/* 效果CSS结束 */
