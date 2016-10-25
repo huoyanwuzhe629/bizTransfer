@@ -2,16 +2,69 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 17:03:56
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-24 17:08:01
+* @Last Modified time: 2016-10-25 17:36:07
 */
 
+.biz-transfer  {
+    position: relative;
+    line-height: 1.5;
+}
 
-/* 效果CSS开始 */
-.selectbox{width:500px;height:220px;margin:0px auto;}
-.selectbox div{float:left;}
-.selectbox .select-bar{padding:0 20px;}
-.selectbox .select-bar select{width:150px;height:200px;border:1px #A0A0A4 solid;padding:4px;font-size:14px;font-family:"microsoft yahei";}
-.btn-bar{}
-.btn-bar p{margin-top:16px;}
-.btn-bar p .btn{width:50px;height:30px;cursor:pointer;font-family:simsun;font-size:14px;}
-/* 效果CSS结束 */
+.biz-transfer-list {
+    font-size: 12px;
+    border: 1px solid #d9d9d9;
+    display: inline-block;
+    border-radius: 6px;
+    vertical-align: middle;
+    position: relative;
+    width: 180px;
+    height: 200px;
+    padding-top: 33px;
+}
+
+.biz-transfer-list-content {
+    height: 100%;
+    overflow: auto;
+    padding: 0px;
+    margin: 0px;
+}
+
+.biz-transfer-list-content-item {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 7px 16px;
+}
+
+.biz-transfer-list-header {
+    padding: 7px 16px;
+    border-radius: 6px 6px 0 0;
+    background: #fff;
+    color: #666;
+    border-bottom: 1px solid #e9e9e9;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 148px;
+}
+
+.biz-transfer-list-body {
+    font-size: 12px;
+    position: relative;
+    height: 100%;
+}
+
+
+.biz-transfer-operation {
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 8px;
+    vertical-align: middle;
+}
+
+
+.biz-transfer-operation button {
+    display: block;
+    margin: 5px;
+}

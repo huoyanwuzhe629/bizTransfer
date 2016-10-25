@@ -12,3 +12,4 @@ bower_components
 dist*
 _dist*
 webpack-assets.json
+npm-debug.log.*
