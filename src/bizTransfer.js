@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 15:10:54
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-25 18:52:12
+* @Last Modified time: 2016-10-25 19:07:17
 */
 
 'use strict';
@@ -56,7 +56,7 @@ export default class BizTransfer {
     render() {
         if (this.dataSource.length) {
             this.dataSource.map((value, index)=>{
-                this.$leftListBody.append(`<li class="biz-transfer-list-content-item"><span>${value.title}</span></li>`);
+                this.$leftListBody.append(`<li class="biz-transfer-list-content-item" chosen=${value.chosen}  ><span>${value.title}</span></li>`);
             });
         }
         if (this.getTargets().length) {
@@ -86,14 +86,15 @@ export default class BizTransfer {
             this.$leftListHeader.prepend(`<input type="checkbox" title=" " class="js-leftSelectAll"/>`);
             this.$rightListHeader.prepend(`<input type="checkbox" title=" " class="js-rightSelectAll"/>`)
             this.dataSource.map((value, index)=>{
-                $(this.$leftListBody.find('li')[index]).prepend(`<input type="checkbox" title=""  key=${value.id} chosen=${value.chosen} /> `)
+                $(this.$leftListBody.find('li')[index]).prepend(`<input type="checkbox" title=""  key=${value.id} /> `)
             });
             this.getTargets().map((value, index)=>{
                 $(this.$rightListBody.find('li')[index]).prepend(`<input type="checkbox" title=""  key=${value.id}/>`)
             });
         }
         this.$el.find(':checkbox').bizCheckbox();
-        this.$leftListBody.find(':checkbox[chosen=true]').bizCheckbox('disable');
+        this.$leftListBody.find('li[chosen=true]').addClass('biz-transfer-disabled');
+        this.$leftListBody.find('li[chosen=true]').find(':checkbox').bizCheckbox('disable');
     }
 
     /**

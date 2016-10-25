@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 17:03:56
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-25 17:36:07
+* @Last Modified time: 2016-10-25 19:05:04
 */
 
 .biz-transfer  {
@@ -34,6 +34,11 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     padding: 7px 16px;
+}
+
+.biz-transfer-disabled {
+    cursor: not-allowed;
+    color: #ccc;
 }
 
 .biz-transfer-list-header {
