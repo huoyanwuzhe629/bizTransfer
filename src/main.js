@@ -2,7 +2,7 @@
  * @Author: xiongsheng
  * @Date:   2016-08-16 17:23:26
  * @Last Modified by:   xiongsheng
- * @Last Modified time: 2016-10-25 18:06:37
+ * @Last Modified time: 2016-10-26 14:40:39
  */
 
 'use strict';
@@ -19,7 +19,23 @@ const data = [
         id: 2,
         title: 'guoqi',
         chosen: true
-    },
+    },{
+        id: 3,
+        title: 'wubo',
+        chosen: false
+    },{
+        id: 4,
+        title: 'qianlu',
+        chosen: false
+    },{
+        id: 5,
+        title: 'chenzhen',
+        chosen: true
+    },{
+        id: 6,
+        title: 'wenchao',
+        chosen: false
+    }
 ];
 $('#bizComponent').bizTransfer({
     dataSource: data
