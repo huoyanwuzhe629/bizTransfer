@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 15:10:54
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-27 18:05:10
+* @Last Modified time: 2016-10-27 18:57:55
 */
 
 'use strict';
@@ -39,8 +39,8 @@ export default class BizTransfer {
                 </div>
             </div>
             <div class="biz-transfer-operation">
-                <button class="js-add"><span class="icon-right"></span></button>
-                <button class="js-remove"><span class="icon-left"></span></button>
+                <button class="js-add biz-transfer-button"><span class="icon-right"></span></button>
+                <button class="js-remove biz-transfer-button"><span class="icon-left"></span></button>
             </div>
             <div class="biz-transfer-list js-right-list" style=${rightStyle}>
                 <div class="biz-transfer-list-header js-right-header">
