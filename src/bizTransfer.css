@@ -2,8 +2,14 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 17:03:56
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-25 19:05:04
+* @Last Modified time: 2016-10-27 18:06:48
 */
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
 .biz-transfer  {
     position: relative;
@@ -20,6 +26,7 @@
     width: 180px;
     height: 200px;
     padding-top: 33px;
+
 }
 
 .biz-transfer-list-content {
@@ -47,11 +54,22 @@
     background: #fff;
     color: #666;
     border-bottom: 1px solid #e9e9e9;
+    box-sizing:border-box;
     overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
-    width: 148px;
+    width: 100%;
+    text-align: center;
+}
+
+.biz-transfer-list-header .biz-label {
+    float: left;
+    margin-right: 0px;
+}
+
+.biz-transfer-list-header span {
+    margin-right: 20px;
 }
 
 .biz-transfer-list-body {
@@ -73,3 +91,20 @@
     display: block;
     margin: 5px;
 }
+
+.icon-left {
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    background: url(./img/line_arrow_left.png);
+    background-size: 20px 10px;
+}
+
+.icon-right {
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    background: url(./img/line_arrow_right.png);
+    background-size: 20px 10px;
+}
+

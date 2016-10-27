@@ -2,7 +2,7 @@
  * @Author: xiongsheng
  * @Date:   2016-08-16 17:23:26
  * @Last Modified by:   xiongsheng
- * @Last Modified time: 2016-10-26 14:40:39
+ * @Last Modified time: 2016-10-27 17:04:12
  */
 
 'use strict';
@@ -37,6 +37,30 @@ const data = [
         chosen: false
     }
 ];
+const addItems = [{
+        id: 7,
+        title: 'ccccc',
+        chosen: false
+    },{
+        id: 8,
+        title: 'eee',
+        chosen: false
+    }]
 $('#bizComponent').bizTransfer({
-    dataSource: data
+    dataSource: data,
+    onChange: function () {
+        console.log('change');
+    },
+    titles: ['过去', '未来'],
+    // keyDict: {
+    //     id: 'groupId',
+    //     title: 'groupTitle',
+    //     chosen: 'selected'
+    // }
+    noContent: '木有东西'
+
 });
+
+// $('#bizComponent').bizTransfer('addItems', addItems);
+console.log($('#bizComponent').bizTransfer('getTargets'))
+
