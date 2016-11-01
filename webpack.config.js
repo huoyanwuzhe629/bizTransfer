@@ -2,7 +2,7 @@
  * @Author: xiongsheng
  * @Date:   2016-08-18 12:37:48
  * @Last Modified by:   xiongsheng
- * @Last Modified time: 2016-10-24 14:50:07
+ * @Last Modified time: 2016-11-01 16:27:48
  */
 var webpack = require("webpack"),
     path = require('path'),

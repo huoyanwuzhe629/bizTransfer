@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-10-24 15:10:54
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-10-27 18:57:55
+* @Last Modified time: 2016-11-01 16:53:28
 */
 
 'use strict';
@@ -11,7 +11,7 @@ export default class BizTransfer {
     constructor(transfer, options) {
         this.options = $.extend({}, options || {});
         this.dataSource = this.options.dataSource || [];
-        this.keyDict = this.options.keyDict || {id: 'id', title: 'title', chosen: 'chosen'};
+        this.keyMap = this.options.keyMap || {id: 'id', title: 'title', chosen: 'chosen'};
         this.noContent = this.options.noContent || '请新增选项';
 
         this.$el = $(transfer);
@@ -71,8 +71,8 @@ export default class BizTransfer {
             this.$leftListBody.html('');
             this.dataSource.map((value, index)=>{
                 this.$leftListBody.append(
-                    `<li class="biz-transfer-list-content-item" key=${value[this.keyDict.id]} chosen=${value[this.keyDict.chosen]} >
-                        <span>${value[this.keyDict.title]}</span>
+                    `<li class="biz-transfer-list-content-item" key=${value[this.keyMap.id]} chosen=${value[this.keyMap.chosen]} >
+                        <span>${value[this.keyMap.title]}</span>
                     </li>`.trim()
                 );
             });
@@ -85,8 +85,8 @@ export default class BizTransfer {
             this.$rightListBody.html('');
             this.getTargets().map((value, index)=>{
                 this.$rightListBody.append(
-                    `<li class="biz-transfer-list-content-item" key=${value[this.keyDict.id]} chosen=${value[this.keyDict.chosen]}>
-                        <span>${value[this.keyDict.title]}</span>
+                    `<li class="biz-transfer-list-content-item" key=${value[this.keyMap.id]} chosen=${value[this.keyMap.chosen]}>
+                        <span>${value[this.keyMap.title]}</span>
                     </li>`.trim()
                 );
             })
@@ -96,6 +96,9 @@ export default class BizTransfer {
 
     addItems(items) {
         if(items.length) {
+            items = items.filter(item=>{
+                return this.dataSource.findIndex(data=>data.id==item.id) == '-1';
+            });
             this.dataSource.push(...items);
             this.addOption(items, 'left');
         }
@@ -104,7 +107,7 @@ export default class BizTransfer {
     //在dataSource中通过chosen字段获得被选中项列表
     getTargets() {
         return this.dataSource.filter(data=>{
-            return data[this.keyDict.chosen];
+            return data[this.keyMap.chosen];
         })
     }
 
@@ -177,7 +180,7 @@ export default class BizTransfer {
                         .attr('chosen', true).find(':checkbox')
                         .bizCheckbox('disable').bizCheckbox('uncheck');
 
-                    this.dataSource[value][this.keyDict.chosen] = true;
+                    this.dataSource[value][this.keyMap.chosen] = true;
                     addList.push(this.dataSource[value]);
                 });
                 this.$el.find('.js-leftSelectAll').bizCheckbox('uncheck');
@@ -199,14 +202,14 @@ export default class BizTransfer {
             if (indexList.length > 0) {
                 indexList.map((value, index)=>{
                     const leftIndex = this.dataSource.findIndex(data=>{
-                            return data[this.keyDict.id] == targetKeys[index]
+                            return data[this.keyMap.id] == targetKeys[index]
                         }),
                         $leftLi = $(this.$leftListBody.find('li')[leftIndex]);
 
                     $leftLi.removeClass('biz-transfer-disabled')
                         .attr('chosen', false).find(':checkbox')
                         .bizCheckbox('enable');
-                    this.dataSource[leftIndex][this.keyDict.chosen] = false;
+                    this.dataSource[leftIndex][this.keyMap.chosen] = false;
 
                     $rightLi.push(this.$rightListBody.find('li')[value]);
                 });
@@ -228,9 +231,9 @@ export default class BizTransfer {
             const $liList = [];
             dataList.map((value, index)=> {
                 const $li = $(
-                    `<li class="biz-transfer-list-content-item" key=${value[this.keyDict.id]} chosen=${value[this.keyDict.chosen]} >
+                    `<li class="biz-transfer-list-content-item" key=${value[this.keyMap.id]} chosen=${value[this.keyMap.chosen]} >
                         <input type="checkbox" title="" />
-                        <span>${value[this.keyDict.title]}</span>
+                        <span>${value[this.keyMap.title]}</span>
                     </li>`.trim()
                 );
                 $liList.push($li[0])

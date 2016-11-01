@@ -2,11 +2,11 @@
  * @Author: xiongsheng
  * @Date:   2016-08-16 17:23:26
  * @Last Modified by:   xiongsheng
- * @Last Modified time: 2016-10-27 17:04:12
+ * @Last Modified time: 2016-11-01 17:39:33
  */
 
 'use strict';
-import './bizTransfer';
+import './bizTransferEs5';
 import './jquery.bizui.css';
 import './bizTransfer.css';
 
@@ -39,7 +39,7 @@ const data = [
 ];
 const addItems = [{
         id: 7,
-        title: 'ccccc',
+        title: 'guomeiqing',
         chosen: false
     },{
         id: 8,
@@ -52,7 +52,7 @@ $('#bizComponent').bizTransfer({
         console.log('change');
     },
     titles: ['过去', '未来'],
-    // keyDict: {
+    // keyMap: {
     //     id: 'groupId',
     //     title: 'groupTitle',
     //     chosen: 'selected'
@@ -61,6 +61,16 @@ $('#bizComponent').bizTransfer({
 
 });
 
-// $('#bizComponent').bizTransfer('addItems', addItems);
-console.log($('#bizComponent').bizTransfer('getTargets'))
+$('.js-new').click((e) => {
+    $('#bizComponent').bizTransfer('addItems', addItems);
+});
+$('.js-getVal').click((e) => {
+
+    console.log($('#bizComponent').bizTransfer('getValue'));
+});
+
+$('.js-select').click((e)=> {
+    $('#bizComponent').bizTransfer('select', [6]);
+});
+
 
