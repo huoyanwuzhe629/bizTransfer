@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-11-01 14:37:49
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-11-01 17:39:58
+* @Last Modified time: 2016-11-02 10:38:03
 */
 
 'use strict';
@@ -363,7 +363,7 @@ BizTransfer.prototype.select = function (idList) {
 
 var dataKey = 'bizTransfer';
 $.extend($.fn, {
-    bizTransfer(method, options) {
+    bizTransfer: function (method, options) {
         var bizTransfer;
         switch (method) {
             case 'addItems':
@@ -371,18 +371,21 @@ $.extend($.fn, {
                 if (bizTransfer) {
                     bizTransfer.addItems(options);
                 }
+                break;
 
             case 'getValue':
                 bizTransfer = $(this).data(dataKey);
                 if (bizTransfer) {
                     return bizTransfer.getValue();
                 }
+                break;
 
             case 'select':
                 bizTransfer = $(this).data(dataKey);
                 if (bizTransfer) {
                     return bizTransfer.select(options);
                 }
+                break;
 
             default:
                 if (!$(this).data(dataKey)) {
