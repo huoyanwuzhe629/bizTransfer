@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-11-01 14:37:49
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-11-02 13:11:18
+* @Last Modified time: 2016-11-02 15:03:37
 */
 
 'use strict';
@@ -10,7 +10,7 @@
 function Transfer(transfer, options) {
     this.options = $.extend({}, options || {});
     this.keyMap = this.options.keyMap || { id: 'id', title: 'title', chosen: 'chosen' };
-    this.dataSource = this.formatInput(this.options.dataSource);
+    this.formatedDataSource = this.formatInput(this.options.dataSource);
     this.noContent = this.options.noContent || '请新增选项';
 
     this.$el = $(transfer);
@@ -54,18 +54,19 @@ Transfer.prototype = {
     /**
      * 输出时还原数据属性值
      */
-    formatOutPut: function(targets) {
+    formatOutPut: function(targets, dataSource) {
         var me = this,
             result = [];
         if (targets.length) {
             $.each(targets, function(index, value) {
-                var tmp = {};
-                tmp[me.keyMap.id] = value.id;
-                tmp[me.keyMap.title] = value.title;
+                var sourceData;
+                sourceData = dataSource.filter(function(data) {
+                    return data[me.keyMap.id] == value.id;
+                })[0];
                 if (me.keyMap.chosen) {
-                    tmp[me.keyMap.chosen] = value.chosen;
+                    sourceData[me.keyMap.chosen] = value.chosen;
                 }
-                result.push(tmp);
+                result.push(sourceData);
             });
         }
         return result;
@@ -129,9 +130,9 @@ Transfer.prototype = {
      */
     render: function() {
         var me = this;
-        if (this.dataSource.length) {
+        if (this.formatedDataSource.length) {
             this.$leftListBody.html('');
-            $.each(this.dataSource, function(index, value) {
+            $.each(this.formatedDataSource, function(index, value) {
                 me.$leftListBody.append(
                     '<li class="biz-transfer-list-content-item" key="' + value.id + '" chosen=' + value.chosen + '>\
                             <span>' + value.title + '</span>\
@@ -160,19 +161,21 @@ Transfer.prototype = {
      * 新增左侧框选项
      */
     addItems: function(items) {
-        var me = this;
-        if (items.length) {
-            items = items.filter(function(item) {
+        var me = this,
+            formatedItems = this.formatInput(items);
+        if (formatedItems.length) {
+            formatedItems = formatedItems.filter(function(item) {
                 var flag = true;
-                $.each(me.dataSource, function(index, value) {
+                $.each(me.formatedDataSource, function(index, value) {
                     if (value.id == item.id) {
                         flag = false;
                     }
                 })
                 return flag;
             });
-            me.dataSource = me.dataSource.concat(items);
-            me.addOption(items, 'left');
+            me.formatedDataSource = me.formatedDataSource.concat(formatedItems);
+            me.options.dataSource = me.options.dataSource.concat(me.formatOutPut(formatedItems, items));
+            me.addOption(formatedItems, 'left');
         }
     },
 
@@ -181,7 +184,7 @@ Transfer.prototype = {
      */
     getTargets: function() {
         var me = this;
-        return this.dataSource.filter(function(data) {
+        return this.formatedDataSource.filter(function(data) {
             return data.chosen;
         })
     },
@@ -205,8 +208,8 @@ Transfer.prototype = {
      */
     createSelect: function() {
         var me = this;
-        if (this.dataSource.length) {
-            $.each(this.dataSource, function(index, value) {
+        if (this.formatedDataSource.length) {
+            $.each(this.formatedDataSource, function(index, value) {
                 $(me.$leftListBody.find('li')[index]).prepend('<input type="checkbox" title="" /> ')
             });
             $.each(this.getTargets(), function(index, value) {
@@ -257,8 +260,8 @@ Transfer.prototype = {
                 .attr('chosen', true).find(':checkbox')
                 .bizCheckbox('disable').bizCheckbox('uncheck');
 
-            me.dataSource[value].chosen = true;
-            addList.push(me.dataSource[value]);
+            me.formatedDataSource[value].chosen = true;
+            addList.push(me.formatedDataSource[value]);
         });
         me.$el.find('.js-leftSelectAll').bizCheckbox('uncheck');
         me.addOption(addList, 'right');
@@ -274,13 +277,13 @@ Transfer.prototype = {
 
 
         $.each(indexList, function(index, value) {
-            var leftIndex = me.findIndexById(me.dataSource, targetKeys[index]),
+            var leftIndex = me.findIndexById(me.formatedDataSource, targetKeys[index]),
                 $leftLi = $(me.$leftListBody.find('li')[leftIndex]);
 
             $leftLi.removeClass('biz-transfer-disabled')
                 .attr('chosen', false).find(':checkbox')
                 .bizCheckbox('enable');
-            me.dataSource[leftIndex].chosen = false;
+            me.formatedDataSource[leftIndex].chosen = false;
 
             $rightLi.push(me.$rightListBody.find('li')[value]);
         });
@@ -388,7 +391,7 @@ Transfer.prototype = {
     getValue: function() {
         var me = this,
             targets = me.getTargets(),
-            result = me.formatOutPut(targets);
+            result = me.formatOutPut(targets, me.options.dataSource);
 
         return result;
     },
@@ -401,8 +404,8 @@ Transfer.prototype = {
             me = this;
 
         $.each(idList, function(index, value) {
-            var i = me.findIndexById(me.dataSource, value);
-            if (i != '-1' && me.dataSource[i].chosen != true) {
+            var i = me.findIndexById(me.formatedDataSource, value);
+            if (i != '-1' && me.formatedDataSource[i].chosen != true) {
                 indexList.push(i);
             }
         });
@@ -445,3 +448,4 @@ $.extend($.fn, {
         return this;
     }
 });
+
