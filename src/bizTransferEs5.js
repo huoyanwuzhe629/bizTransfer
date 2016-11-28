@@ -2,7 +2,7 @@
 * @Author: xiongsheng
 * @Date:   2016-11-01 14:37:49
 * @Last Modified by:   xiongsheng
-* @Last Modified time: 2016-11-02 15:03:37
+* @Last Modified time: 2016-11-28 15:43:42
 */
 
 'use strict';
@@ -130,8 +130,10 @@ Transfer.prototype = {
      */
     render: function() {
         var me = this;
+        this.$leftListBody.html('');
+        this.$rightListBody.html('');
+
         if (this.formatedDataSource.length) {
-            this.$leftListBody.html('');
             $.each(this.formatedDataSource, function(index, value) {
                 me.$leftListBody.append(
                     '<li class="biz-transfer-list-content-item" key="' + value.id + '" chosen=' + value.chosen + '>\
@@ -145,7 +147,6 @@ Transfer.prototype = {
                 </li>');
         }
         if (this.getTargets().length) {
-            this.$rightListBody.html('');
             $.each(this.getTargets(), function(index, value) {
                 me.$rightListBody.append(
                     '<li class="biz-transfer-list-content-item" key="' + value.id + '" chosen=' + value.chosen + '>\
@@ -411,6 +412,12 @@ Transfer.prototype = {
         });
 
         me.moveRight(indexList);
+    },
+
+    update: function(data) {
+        this.options.dataSource = data;
+        this.formatedDataSource = this.formatInput(this.options.dataSource);
+        this.render();
     }
 };
 
@@ -437,6 +444,13 @@ $.extend($.fn, {
                 bizTransfer = $(this).data(dataKey);
                 if (bizTransfer) {
                     return bizTransfer.select(options);
+                }
+                break;
+
+            case 'update':
+                bizTransfer = $(this).data(dataKey);
+                if (bizTransfer) {
+                    return bizTransfer.update(options);
                 }
                 break;
 
